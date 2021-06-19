@@ -19,9 +19,9 @@ Route::get('/', function () {
  
 Auth::routes();
 Auth::routes(['verify'=>true]);
-Route::group(['middleware'=>['verified']],function(){
+// Route::group(['middleware'=>['verified']],function(){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/profile', [App\Http\Controllers\AdminController::class,'manageprofile'])->name('profile');
 	Route::post('/profile', [App\Http\Controllers\AdminController::class,'updateprofile'])->name('updateprofile');
-});
+// });
 

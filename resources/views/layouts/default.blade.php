@@ -30,10 +30,10 @@
 </head>
 <body>
     <div id="app">
-     
-        <section class="s-pageheader {{ \Request::is('/') ? 's-pageheader--home':''}} ">
+     {{ Request::path() }}
+        <section class="s-pageheader {{ Request::path() == 'user' ? 's-pageheader--home':''}} ">
             @include('layouts.partials_user.header')
-            @if (\Request::is('/'))  
+            @if (Request::path() == 'user')  
             @include('layouts.partials_user.slider')
 @endif
         </section> <!-- end s-pageheader -->
@@ -125,7 +125,7 @@
                     </div>
 
                     <div class="go-top">
-                        <a class="smoothscroll" title="Back to Top" href="#top"></a>
+                        <a class="smoothscroll" title="Back to Top" href="#app"></a>
                     </div>
                 </div>
             </div>

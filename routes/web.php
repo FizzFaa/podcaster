@@ -41,10 +41,12 @@ Route::group(['middleware'=>['verified','auth'], 'prefix'=>'admin'],function(){
 	
 });
 //Routes Front End
+Route::group(['prefix'=>'user'],function(){
+Route::get('/', [App\Http\Controllers\BlogController::class, 'index'])->name('user.home');
+Route::get('/post-details/', [App\Http\Controllers\BlogController::class, 'create'])->name('posts.details');
+Route::get('/getprevioustitle', [App\Http\Controllers\BlogController::class, 'prev'])->name('posts.prev');
+Route::get('/getnexttitle', [App\Http\Controllers\BlogController::class, 'next'])->name('posts.next');
 
-Route::get('/',function(){
-    return view('User.index');
-});
-Route::get('/fahad',function(){
-    return view('User.index');
+Route::get('/popularposts', [App\Http\Controllers\BlogController::class, 'getPopularPosts'])->name('post.popular');
+
 });

@@ -15,6 +15,11 @@ class BlogController extends Controller
     public function index()
     {
         //
+        $blogs = Blog::latest()->get();
+        return view('User.index',
+        [
+            'posts'=>$blogs
+        ]);
     }
 
     /**
@@ -22,10 +27,68 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+        
+        
+        if($request->get('nextprev') == 0)
+        {
+ $blog = Blog::with('category')->find($request->get('id'));
+        }
+        else if($request->get('nextprev') == 1)
+        {
+            $blog = Blog::with('category')->where('id','<',$request->get('id'))->first();
+            if($blog == null)
+            {
+                $blog = Blog::with('category')->find($request->get('id'));
+
+            }
+
+        }
+        else {
+            $blog = Blog::with('category')->where('id','>',$request->get('id'))->first();
+            if($blog == null)
+            {
+                $blog = Blog::with('category')->find($request->get('id'));
+
+            }
+        }
+       
+        return view('User.post',[
+            'post'=>$blog,
+            
+        ]);
+
     }
+    public function next(Request $request)
+    {
+        $blog = Blog::with('category')->where('id','>',$request['id'])->first();
+        if($blog=='')
+        {
+        $blog='Last';    
+        $blog = array('title' =>$blog);
+        }
+        return $blog;
+
+    }
+    public function prev(Request $request)
+    {
+        
+        $blog = Blog::with('category')->where('id','<',$request['id'])->first();
+        if($blog=='')
+        {
+        $blog='First';    
+        $blog = array('title' =>$blog);
+        }
+        return $blog;
+
+    }
+
+public function  getPopularPosts()
+{
+    return $blogs = Blog::latest()->get();
+}
 
     /**
      * Store a newly created resource in storage.

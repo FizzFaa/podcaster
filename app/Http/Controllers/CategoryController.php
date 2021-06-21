@@ -19,7 +19,7 @@ class CategoryController extends Controller
         //
         $categories = Category::latest()->get();
                
-        return view('category.index',[
+        return view('admin.category.index',[
             'categories'=>$categories
         ]);
     }
@@ -32,7 +32,7 @@ class CategoryController extends Controller
     public function create()
     {
         //
-        return view('category.create');
+        return view('admin.category.create');
     }
 
     /**
@@ -88,7 +88,7 @@ class CategoryController extends Controller
     {
         //
         $cat = Category::find($category);
-        return view('category.edit',[
+        return view('admin.category.edit',[
             "category"=>$cat,
         ]);
     }

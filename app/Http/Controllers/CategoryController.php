@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CategoryController extends Controller
 {
@@ -15,6 +17,11 @@ class CategoryController extends Controller
     public function index()
     {
         //
+        $categories = Category::latest()->get();
+               
+        return view('category.index',[
+            'categories'=>$categories
+        ]);
     }
 
     /**
@@ -25,6 +32,7 @@ class CategoryController extends Controller
     public function create()
     {
         //
+        return view('category.create');
     }
 
     /**
@@ -36,6 +44,27 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            "title" => "required|min:5",
+            "desc" => "required|min:10",
+            "status" => "required",
+            
+        
+        ], [
+            "title.required" => "Please enter Title name ",
+            "title.min" => "Please enter Title name more than 5 characters",
+            "desc.required" => "Please enter Description words more than 20",
+            "desc.min" => "Please enter Description words more than 10",
+           
+            "status.required" => 'Please Set Status',
+        ]);
+        $category = new Category();
+        $category->title = $request->get('title');
+        $category->description = $request->get('desc');
+        $category->status =$request->get('status');
+        $category->save();
+        Session::flash("success", "Category Added Successfully");
+        return back();
     }
 
     /**
@@ -55,9 +84,13 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($category)
     {
         //
+        $cat = Category::find($category);
+        return view('category.edit',[
+            "category"=>$cat,
+        ]);
     }
 
     /**
@@ -67,9 +100,32 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request,  $category)
     {
         //
+        
+        $this->validate($request, [
+            "title" => "required",
+            "desc" => "required|min:10",
+            "status" => "required",
+            
+        
+        ], [
+            "title.required" => "Please enter Title name",
+            "desc.required" => "Please enter Description words more than 20",
+            "desc.min" => "Please enter Description words more than 10",
+           
+            "status.required" => 'Please Set Status',
+        ]);
+        $cat = Category::find($category);
+        $cat->title = $request->get('title');
+        $cat->description = $request->get('desc');
+        $cat->status =$request->get('status');
+        
+        $cat->save();
+        Session::flash("success", "Category Update Successfully");
+        return back();
+
     }
 
     /**
@@ -78,8 +134,14 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy( $id)
     {
         //
+        $cat = Category::find($id);
+        $cat->status = 0;
+        $cat->save();
+        Session::flash("success", "Category has been deleted!");
+        return back();
     }
+    
 }

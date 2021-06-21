@@ -15,6 +15,8 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                    <form action=""></form>
+                    <textarea name="description" id="summary-ckeditor" cols="30" rows="10"></textarea>
                 </div>
             </div>
         </div>

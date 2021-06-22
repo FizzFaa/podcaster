@@ -42,10 +42,18 @@ Route::group(['middleware'=>['verified','auth'], 'prefix'=>'admin'],function(){
     Route::post('blog-add', [App\Http\Controllers\BlogController::class,'store'])->name('blog-add');
     Route::get('/blog-add', [App\Http\Controllers\BlogController::class,'addBlog'])->name('blog-add');
     //end blog routes
+     //Video routes
+    Route::get('/videos', [App\Http\Controllers\VideoController::class,'getVideos'])->name('videos');
+    Route::get('video-delete/',[App\Http\Controllers\VideoController::class,'destroy'])->name('video-delete');
+    Route::get('video-edit/',[App\Http\Controllers\VideoController::class,'edit'])->name('video-edit');
+    Route::post('video-edit/', [App\Http\Controllers\VideoController::class,'update'])->name('video-edit-post');
+    Route::post('video-add', [App\Http\Controllers\VideoController::class,'store'])->name('video-add');
+    Route::get('/video-add', [App\Http\Controllers\VideoController::class,'addVideo'])->name('video-add');
+    //end Video routes
    
     Route::get('/podcasts', [App\Http\Controllers\PodcastController::class,'index'])->name('podcasts');
     Route::get('/events', [App\Http\Controllers\EventsController::class,'index'])->name('events');
-    Route::get('/videos', [App\Http\Controllers\VideoController::class,'index'])->name('videos');
+    
 	
 });
 //Routes Front End

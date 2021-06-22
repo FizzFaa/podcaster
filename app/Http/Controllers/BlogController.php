@@ -111,6 +111,7 @@ public function  getPopularPosts()
      */
     public function store(Request $request)
     {
+
         //title desc category image
         $this->validate($request,[
             'title'=>'required| min:5',
@@ -236,8 +237,9 @@ public function  getPopularPosts()
                 $imagepath =asset($path . $blog->title . '_' . $image);
                 
             $blog->image = $imagepath;
-            $blog->save();
+            
         }
+        $blog->save();
         Session::flash("success", "Blog has been Updated");
         return back();
 

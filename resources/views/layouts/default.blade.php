@@ -30,6 +30,7 @@
 </head>
 <body>
     <div id="app">
+        {{-- {{ $categories }} --}}
      {{ Request::path() }}
         <section class="s-pageheader {{ Request::path() == 'user' ? 's-pageheader--home':''}} ">
             @include('layouts.partials_user.header')

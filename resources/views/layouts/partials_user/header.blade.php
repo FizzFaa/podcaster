@@ -50,7 +50,13 @@
                 <li class="has-children">
                     <a href="#0" title="">Categories</a>
                     <ul class="sub-menu">
-                    <li><a href="category.html">Lifestyle</a></li>
+                        {{-- @forelse($categories as $key => $value)
+                        <li><a href="category.html">Lifestyle</a></li>        
+                        @empty
+                        <li><a href="javascript:void(0)">Loading....</a></li>
+                            
+                        @endforelse --}}
+                    
                     <li><a href="category.html">Health</a></li>
                     <li><a href="category.html">Family</a></li>
                     <li><a href="category.html">Management</a></li>

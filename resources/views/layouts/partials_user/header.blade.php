@@ -56,7 +56,9 @@
                     <li><a href="category.html">Management</a></li>
                     <li><a href="category.html">Travel</a></li>
                     <li><a href="category.html">Work</a></li>
+                    
                     </ul>
+                   
                 </li>
                 <li class="has-children">
                     <a href="#0" title="">Blog</a>

@@ -30,7 +30,7 @@
 </head>
 <body>
     <div id="app">
-     {{ Request::path() }}
+     
         <section class="s-pageheader {{ Request::path() == 'user' ? 's-pageheader--home':''}} ">
             @include('layouts.partials_user.header')
             @if (Request::path() == 'user')  
@@ -155,6 +155,7 @@
     <script src="{{ asset('theme/js/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('theme/js/plugins.js') }}"></script>
     <script src="{{ asset('theme/js/main.js') }}"></script>
+    
    
 </body>
 </html>

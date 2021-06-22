@@ -34,16 +34,44 @@ Route::group(['middleware'=>['verified','auth'], 'prefix'=>'admin'],function(){
     Route::post('category-add', [App\Http\Controllers\CategoryController::class,'store'])->name('categoy-add');
     Route::get('/category-add', [App\Http\Controllers\CategoryController::class,'create'])->name('category-add');
     //end categories routes
-    Route::get('/posts', [App\Http\Controllers\BlogController::class,'index'])->name('posts');
-    Route::get('/podcasts', [App\Http\Controllers\PodcastController::class,'index'])->name('podcasts');
+    //blog routes
+    Route::get('/blogs', [App\Http\Controllers\BlogController::class,'getBlogs'])->name('blogs');
+    Route::get('blog-delete/',[App\Http\Controllers\BlogController::class,'destroy'])->name('blog-delete');
+    Route::get('blog-edit/',[App\Http\Controllers\BlogController::class,'edit'])->name('blog-edit');
+    Route::post('blog-edit/', [App\Http\Controllers\BlogController::class,'update'])->name('blog-edit-post');
+    Route::post('blog-add', [App\Http\Controllers\BlogController::class,'store'])->name('blog-add');
+    Route::get('/blog-add', [App\Http\Controllers\BlogController::class,'addBlog'])->name('blog-add');
+    //end blog routes
+     //Video routes
+    Route::get('/videos', [App\Http\Controllers\VideoController::class,'getVideos'])->name('videos');
+    Route::get('video-delete/',[App\Http\Controllers\VideoController::class,'destroy'])->name('video-delete');
+    Route::get('video-edit/',[App\Http\Controllers\VideoController::class,'edit'])->name('video-edit');
+    Route::post('video-edit/', [App\Http\Controllers\VideoController::class,'update'])->name('video-edit-post');
+    Route::post('video-add', [App\Http\Controllers\VideoController::class,'store'])->name('video-add');
+    Route::get('/video-add', [App\Http\Controllers\VideoController::class,'addVideo'])->name('video-add');
+    //end Video routes
+    
+    //Podcasts routes
+    Route::get('/podcasts', [App\Http\Controllers\PodcastController::class,'getPodcasts'])->name('podcasts');
+    Route::get('podcast-delete/',[App\Http\Controllers\PodcastController::class,'destroy'])->name('podcast-delete');
+    Route::get('podcast-edit/',[App\Http\Controllers\PodcastController::class,'edit'])->name('podcast-edit');
+    Route::post('podcast-edit/', [App\Http\Controllers\PodcastController::class,'update'])->name('podcast-edit-post');
+    Route::post('podcast-add', [App\Http\Controllers\PodcastController::class,'store'])->name('podcast-add');
+    Route::get('/podcast-add', [App\Http\Controllers\PodcastController::class,'addPodcast'])->name('podcast-add');
+    //Podcasts Video routes
+   
+    
     Route::get('/events', [App\Http\Controllers\EventsController::class,'index'])->name('events');
-    Route::get('/videos', [App\Http\Controllers\VideoController::class,'index'])->name('videos');
+    
+    
 	
 });
+Route::post('cke', [App\Http\Controllers\EventsController::class,'store'])->name('cke');
 //Routes Front End
 Route::group(['prefix'=>'user'],function(){
 Route::get('/', [App\Http\Controllers\BlogController::class, 'index'])->name('user.home');
 Route::get('/post-details/', [App\Http\Controllers\BlogController::class, 'create'])->name('posts.details');
+Route::get('/popular/{id}', [App\Http\Controllers\BlogController::class, 'popularPosts'])->name('popular.details');
 Route::get('/getprevioustitle', [App\Http\Controllers\BlogController::class, 'prev'])->name('posts.prev');
 Route::get('/getnexttitle', [App\Http\Controllers\BlogController::class, 'next'])->name('posts.next');
 

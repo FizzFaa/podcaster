@@ -18,4 +18,8 @@ class Category extends Model
     {
       return  $this->hasOne(Blog::class,'cat_id','id');
     }
+    public function videos()
+    {
+      return  $this->hasOne(Video::class,'cat_id','id');
+    }
 }

@@ -32,4 +32,6 @@ class ComposerServiceProvider extends ServiceProvider
             $view->with('categories',$categories);
         });
     }
-}w
+
+}
+

@@ -117,7 +117,7 @@
     var nexttitle=
         document.addEventListener('DOMContentLoaded', function () {
                  ///code
-            
+               
               // Your jquery code
               jQuery.noConflict();
               jQuery(document).ready(function(){
@@ -177,7 +177,8 @@
           
           
         jQuery.map(data, function(val, key) {
-          html_option+="  <article class='col-block popular__post' id='art'><a href='#0' class='popular__thumb'><img class='post_image' src='"+val.image+"' alt=''></a><h5><a href='#0' class='post_title'>"+val.title+".</a></h5><section class='popular__meta'><span class='popular__author'><span>By</span> <a href='#0'> John Doe</a></span>                <span class='popular__date'><span>on</span> <time datetime='2017-12-19' class='created_at'>'"+val.created_at+"'</time></span></section></article>"
+            
+          html_option+="  <article class='col-block popular__post' id='art'><a href='/user/popular/"+ val.id +"/'  class='popular__thumb'><img class='post_image' src='"+val.image+"' alt=''></a><h5><a href='#0' class='post_title'>"+val.title+".</a></h5><section class='popular__meta'><span class='popular__author'><span>By</span> <a href='#0'> John Doe</a></span>                <span class='popular__date'><span>on</span> <time datetime='2017-12-19' class='created_at'>'"+val.created_at+"'</time></span></section></article>"
 
   
 });
@@ -189,6 +190,7 @@ jQuery('#article-parent').html(html_option);
       });
        jQuery.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
       });
+     
       
       
       </script>

@@ -30,8 +30,10 @@
 </head>
 <body>
     <div id="app">
-        {{-- {{ $categories }} --}}
-     {{ Request::path() }}
+
+        
+     
+
         <section class="s-pageheader {{ Request::path() == 'user' ? 's-pageheader--home':''}} ">
             @include('layouts.partials_user.header')
             @if (Request::path() == 'user')  
@@ -39,6 +41,7 @@
 @endif
         </section> <!-- end s-pageheader -->
         <main class="py-4">
+           
             @yield('content')
         </main>
     </div>
@@ -121,12 +124,13 @@
             <div class="row">
                 <div class="col-full">
                     <div class="s-footer__copyright">
-                        <span>© Copyright Philosophy 2018</span> 
-                        <span>Site Template by <a href="https://colorlib.com/">Colorlib</a></span>
+                        <span>© Copyright FizzFaa</span> 
+                        <span>Site Template by <a href="https://facebook.com/fadi302">FizzFaa</a></span>
                     </div>
 
                     <div class="go-top">
                         <a class="smoothscroll" title="Back to Top" href="#app"></a>
+
                     </div>
                 </div>
             </div>
@@ -155,6 +159,7 @@
     <script src="{{ asset('theme/js/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('theme/js/plugins.js') }}"></script>
     <script src="{{ asset('theme/js/main.js') }}"></script>
+    
    
 </body>
 </html>

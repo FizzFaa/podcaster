@@ -37,8 +37,8 @@
         </div>
         <div class="entry__meta">
             <span class="entry__meta-links">
-                <a href="category.html">Design</a> 
-                <a href="category.html">Photography</a>
+                <a href="javascript:void(0)">Design</a> 
+                <a href="javascript:void(0)">Photography</a>
             </span>
         </div>
     </div>
@@ -49,7 +49,7 @@
 <article class="masonry__brick entry format-standard" data-aos="fade-up">
                         
     <div class="entry__thumb">
-        <a href="single-standard.html" class="entry__thumb-link">
+        <a href="javascript:void(0)" class="entry__thumb-link">
             <img src="images/thumbs/masonry/lamp-400.jpg" 
                     srcset="images/thumbs/masonry/lamp-400.jpg 1x, images/thumbs/masonry/lamp-800.jpg 2x" alt="">
         </a>
@@ -59,9 +59,9 @@
         <div class="entry__header">
             
             <div class="entry__date">
-                <a href="single-standard.html">December 15, 2017</a>
+                <a href="javascript:void(0)">December 15, 2017</a>
             </div>
-            <h1 class="entry__title"><a href="single-standard.html">Just a Standard Format Posts.</a></h1>
+            <h1 class="entry__title"><a href="javascript:void(0)">Just a Standard Format Posts.</a></h1>
             
         </div>
         <div class="entry__excerpt">
@@ -71,8 +71,8 @@
         </div>
         <div class="entry__meta">
             <span class="entry__meta-links">
-                <a href="category.html">Design</a> 
-                <a href="category.html">Photography</a>
+                <a href="javascript:void(0)">Design</a> 
+                <a href="javascript:void(0)">Photography</a>
             </span>
         </div>
     </div>
@@ -450,8 +450,8 @@
 
             </div> <!-- end masonry -->
         </div> <!-- end masonry-wrap -->
-
-        <div class="row">
+        {{ $posts->links('vendor.pagination.custom') }}
+        {{-- <div class="row">
             <div class="col-full">
                 <nav class="pgn">
                     <ul>
@@ -467,7 +467,7 @@
                     </ul>
                 </nav>
             </div>
-        </div>
+        </div> --}}
 
     </section> <!-- s-content -->
 

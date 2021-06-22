@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Session;
 
 class BlogController extends Controller
 {
@@ -12,11 +17,20 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         
-        $blogs = Blog::latest()->get();
+
+        if(isset($request['id']))
+        {
+        $blogs = Blog::where('cat_id','=',$request['id'])->paginate(5);
+        }
+        else {
+              $blogs = Blog::latest()->paginate(5);
+        }
+      
+
         return view('User.index',
         [
             'posts'=>$blogs
@@ -99,7 +113,52 @@ public function  getPopularPosts()
      */
     public function store(Request $request)
     {
-        //
+
+        //title desc category image
+        $this->validate($request,[
+            'title'=>'required| min:5',
+            'desc'=>'required|min:20',
+            'category'=>'required'
+            
+
+        ],[
+            'title.required'=>'Title cannot be Empty',
+            'title.min'=>'Title must have 5 characters',
+            'desc.required'=>'Description cannot be Empty',
+            'desc.min'=>'Description must  have 20 characters',
+            'category.required'=>'Please Select Category',
+
+        ]);
+        $blog = new Blog();
+        $blog->title = $request->get('title');
+        $blog->desc = $request->get('desc');
+        $blog->cat_id = $request->get('category');
+        
+        
+        if ($request->file('image')) {
+            $this->validate($request, [
+                "image" => "mimes:png,jpg,jpeg"
+            ], [
+                "image.mimes" => "Please upload png or jpg format"
+            ]);
+            if (File::exists($blog->image)) {
+                File::delete($blog->image);
+            }
+            $path = 'files/upload/admin/blogs/';
+
+            $thumb = $request->file('image');
+            $image = Str::slug($blog->title) . rand(12345678, 98765432) . '.' . $thumb->getClientOriginalExtension();
+            if (!file_exists($path)) {
+                mkdir($path, 666, true);
+            }
+            Image::make($thumb)->resize(300, 300)->save($path . $blog->title . '_' . $image);
+                $imagepath =asset($path . $blog->title . '_' . $image);
+                
+            $blog->image = $imagepath;
+            $blog->save();
+        }
+        Session::flash("success", "Blog has been created");
+        return back();
     }
 
     /**
@@ -119,9 +178,15 @@ public function  getPopularPosts()
      * @param  \App\Models\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function edit(Blog $blog)
+    public function edit(Request $blog)
     {
         //
+        $cat = Category::latest()->get();
+        $blog = Blog::find($blog['id']);
+        return view('admin.blog.edit',[
+            'blog'=>$blog,
+            'categories'=>$cat
+        ]);
     }
 
     /**
@@ -134,6 +199,53 @@ public function  getPopularPosts()
     public function update(Request $request, Blog $blog)
     {
         //
+        //title desc category image
+        $this->validate($request,[
+            'title'=>'required| min:5',
+            'desc'=>'required|min:20',
+            'category'=>'required'
+            
+
+        ],[
+            'title.required'=>'Title cannot be Empty',
+            'title.min'=>'Title must have 5 characters',
+            'desc.required'=>'Description cannot be Empty',
+            'desc.min'=>'Description must  have 20 characters',
+            'category.required'=>'Please Select Category',
+
+        ]);
+        $blog = Blog::find($request['id']);
+        $blog->title = $request->get('title');
+        $blog->desc = $request->get('desc');
+        $blog->cat_id = $request->get('category');
+           
+        if ($request->file('image')) {
+            $this->validate($request, [
+                "image" => "mimes:png,jpg,jpeg"
+            ], [
+                "image.mimes" => "Please upload png or jpg format"
+            ]);
+            if (File::exists($blog->image)) {
+                File::delete($blog->image);
+            }
+            $path = 'files/upload/admin/blogs/';
+
+            $thumb = $request->file('image');
+            $image = Str::slug($blog->title) . rand(12345678, 98765432) . '.' . $thumb->getClientOriginalExtension();
+            if (!file_exists($path)) {
+                mkdir($path, 666, true);
+            }
+            Image::make($thumb)->resize(300, 300)->save($path . $blog->title . '_' . $image);
+                $imagepath =asset($path . $blog->title . '_' . $image);
+                
+            $blog->image = $imagepath;
+            
+        }
+        $blog->save();
+        Session::flash("success", "Blog has been Updated");
+        return back();
+
+
     }
 
     /**
@@ -142,8 +254,42 @@ public function  getPopularPosts()
      * @param  \App\Models\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Blog $blog)
+    public function destroy(Request $blog)
     {
         //
+        $blog = Blog::find($blog['id']);
+        $blog->delete();
+        Session::flash("error", "Blog has been Deleted");
+        return back();
+    }
+    // ADMIN SIDE BEHAVIOURS METHODS
+    public function getBlogs()
+    {
+        $blogs = Blog::latest()->with('category')->paginate(5);
+        return view('admin.blog.index',
+    [
+        'posts' =>$blogs
+    ]);
+    }
+
+
+    public function addBlog()
+    {
+        $cat = Category::latest()->get();
+        return view('admin.blog.create',
+    [
+        "categories"=>$cat
+    ]);
+    }
+    public function popularPosts( $id)
+    {
+
+        $blog = Blog::with('category')->find($id);
+
+
+return view('User.post',[
+    'post'=>$blog,
+    
+]);
     }
 }

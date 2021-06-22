@@ -176,7 +176,13 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         //Intervention
-        Intervention\Image\ImageServiceProvider::class
+        Intervention\Image\ImageServiceProvider::class,
+        //provide composer service view to
+
+        
+            // other providers
+        App\Providers\ComposerServiceProvider::class
+        
 
     ],
 

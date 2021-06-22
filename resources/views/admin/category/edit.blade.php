@@ -34,10 +34,7 @@
                                  class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label>
 
                           <div class="col-md-6">
-                              <textarea id="desc" type="text"
-                                     class="form-control @error('desc') is-invalid @enderror"
-                                     name="desc"  required
-                                     autofocus>{{ $category->description }}</textarea>
+                            <textarea name="desc" id="summary-ckeditor" cols="30" rows="10">{!! $category->description !!}</textarea>
 
                               @error('desc')
                               <span class="invalid-feedback" role="alert">

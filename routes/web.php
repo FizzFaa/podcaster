@@ -34,7 +34,15 @@ Route::group(['middleware'=>['verified','auth'], 'prefix'=>'admin'],function(){
     Route::post('category-add', [App\Http\Controllers\CategoryController::class,'store'])->name('categoy-add');
     Route::get('/category-add', [App\Http\Controllers\CategoryController::class,'create'])->name('category-add');
     //end categories routes
-    Route::get('/posts', [App\Http\Controllers\BlogController::class,'index'])->name('posts');
+    //blog routes
+    Route::get('/blogs', [App\Http\Controllers\BlogController::class,'getBlogs'])->name('blogs');
+    Route::get('blog-delete/',[App\Http\Controllers\BlogController::class,'destroy'])->name('blog-delete');
+    Route::get('blog-edit/',[App\Http\Controllers\BlogController::class,'edit'])->name('blog-edit');
+    Route::post('blog-edit/', [App\Http\Controllers\BlogController::class,'update'])->name('blog-edit-post');
+    Route::post('blog-add', [App\Http\Controllers\BlogController::class,'store'])->name('blog-add');
+    Route::get('/blog-add', [App\Http\Controllers\BlogController::class,'addBlog'])->name('blog-add');
+    //end blog routes
+   
     Route::get('/podcasts', [App\Http\Controllers\PodcastController::class,'index'])->name('podcasts');
     Route::get('/events', [App\Http\Controllers\EventsController::class,'index'])->name('events');
     Route::get('/videos', [App\Http\Controllers\VideoController::class,'index'])->name('videos');

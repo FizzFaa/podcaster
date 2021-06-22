@@ -28,7 +28,7 @@ class ComposerServiceProvider extends ServiceProvider
         //
         
         View::composer('layouts.default', function($view){
-            $categories = Category::latest()->get();
+            $categories = Category::latest()->with('posts')->get();
             $view->with('categories',$categories);
         });
     }

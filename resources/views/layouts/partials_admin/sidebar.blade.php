@@ -6,7 +6,7 @@
                    <a href="{{route('categories')}}">{{__('Categories')}}</a>
                    </li>
                    <li>
-                    <a href="{{route('posts')}}">{{__('Posts')}}</a>
+                    <a href="{{route('blogs')}}">{{__('Posts')}}</a>
                     </li>
                    <li>
                    <a href="{{route('videos')}}">{{__('Videos')}}</a>

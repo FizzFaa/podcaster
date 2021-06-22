@@ -191,9 +191,13 @@ class VideoController extends Controller
      * @param  \App\Models\Video  $video
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Video $video)
+    public function destroy(Request $video)
     {
         //
+        $video = Video::find($video['id']);
+        $video->delete();
+        Session::flash("error", "Video Post has been Deleted");
+        return back();
     }
 
     // ADMIN SIDE BEHAVIOURS METHODS

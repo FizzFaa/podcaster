@@ -50,8 +50,17 @@ Route::group(['middleware'=>['verified','auth'], 'prefix'=>'admin'],function(){
     Route::post('video-add', [App\Http\Controllers\VideoController::class,'store'])->name('video-add');
     Route::get('/video-add', [App\Http\Controllers\VideoController::class,'addVideo'])->name('video-add');
     //end Video routes
+    
+    //Podcasts routes
+    Route::get('/podcasts', [App\Http\Controllers\PodcastController::class,'getPodcasts'])->name('podcasts');
+    Route::get('podcast-delete/',[App\Http\Controllers\PodcastController::class,'destroy'])->name('podcast-delete');
+    Route::get('podcast-edit/',[App\Http\Controllers\PodcastController::class,'edit'])->name('podcast-edit');
+    Route::post('podcast-edit/', [App\Http\Controllers\PodcastController::class,'update'])->name('podcast-edit-post');
+    Route::post('podcast-add', [App\Http\Controllers\PodcastController::class,'store'])->name('podcast-add');
+    Route::get('/podcast-add', [App\Http\Controllers\PodcastController::class,'addPodcast'])->name('podcast-add');
+    //Podcasts Video routes
    
-    Route::get('/podcasts', [App\Http\Controllers\PodcastController::class,'index'])->name('podcasts');
+    
     Route::get('/events', [App\Http\Controllers\EventsController::class,'index'])->name('events');
     
 	

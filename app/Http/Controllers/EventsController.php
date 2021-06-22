@@ -36,6 +36,11 @@ class EventsController extends Controller
     public function store(Request $request)
     {
         //
+        $description = $request->get('description');
+        return view('User.index',
+    [
+        'desc'=>$description,
+    ]);
     }
 
     /**

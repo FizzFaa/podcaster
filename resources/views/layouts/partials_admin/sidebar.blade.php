@@ -14,10 +14,10 @@
                    <li>
                    <a href="{{route('podcasts')}}">{{__('Podcasts')}}</a>
                    </li>
-                  
+{{--                   
                    <li>
                    <a href="{{route('events')}}">{{__('Events')}}</a>
-                   </li>
+                   </li> --}}
 
                 </div>
             </div>

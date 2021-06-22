@@ -63,8 +63,10 @@ Route::group(['middleware'=>['verified','auth'], 'prefix'=>'admin'],function(){
     
     Route::get('/events', [App\Http\Controllers\EventsController::class,'index'])->name('events');
     
+    
 	
 });
+Route::post('cke', [App\Http\Controllers\EventsController::class,'store'])->name('cke');
 //Routes Front End
 Route::group(['prefix'=>'user'],function(){
 Route::get('/', [App\Http\Controllers\BlogController::class, 'index'])->name('user.home');

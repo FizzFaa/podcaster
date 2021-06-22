@@ -39,9 +39,7 @@ class PodcastController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        
-        //
+        dd($request->all());
         
         //title desc category image
         $this->validate($request,[

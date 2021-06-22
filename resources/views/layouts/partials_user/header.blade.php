@@ -1,4 +1,5 @@
 <header class="header">
+    
     <div class="header__content row">
 
         <div class="header__logo">
@@ -50,12 +51,18 @@
                 <li class="has-children">
                     <a href="#0" title="">Categories</a>
                     <ul class="sub-menu">
-                    <li><a href="category.html">Lifestyle</a></li>
+                        @forelse ($categories as $row )
+                        <li><a href="{{ route('user.home',['id'=>$row->id]) }}">{{ $row->title }}</a></li>
+                        @empty
+                        <li><a href="javascript:void(0)">Loading...</a></li>
+                            
+                        @endforelse
+                    {{-- <li><a href="category.html">Lifestyle</a></li>
                     <li><a href="category.html">Health</a></li>
                     <li><a href="category.html">Family</a></li>
                     <li><a href="category.html">Management</a></li>
-                    <li><a href="category.html">Travel</a></li>
-                    <li><a href="category.html">Work</a></li>
+                    <li><a href="category.html">Travel</a></li> --}}
+                    
                     
                     </ul>
                    

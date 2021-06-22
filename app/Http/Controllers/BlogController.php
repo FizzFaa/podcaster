@@ -12,10 +12,18 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $blogs = Blog::latest()->paginate(5);
+        
+        if(isset($request['id']))
+        {
+        $blogs = Blog::where('cat_id','=',$request['id'])->paginate(5);
+        }
+        else {
+              $blogs = Blog::latest()->paginate(5);
+        }
+      
         return view('User.index',
         [
             'posts'=>$blogs

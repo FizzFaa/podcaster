@@ -30,6 +30,7 @@
 </head>
 <body>
     <div id="app">
+        
      
         <section class="s-pageheader {{ Request::path() == 'user' ? 's-pageheader--home':''}} ">
             @include('layouts.partials_user.header')
@@ -38,6 +39,7 @@
 @endif
         </section> <!-- end s-pageheader -->
         <main class="py-4">
+           
             @yield('content')
         </main>
     </div>

@@ -81,5 +81,7 @@ Route::get('/getprevioustitle', [App\Http\Controllers\BlogController::class, 'pr
 Route::get('/getnexttitle', [App\Http\Controllers\BlogController::class, 'next'])->name('posts.next');
 
 Route::get('/popularposts', [App\Http\Controllers\BlogController::class, 'getPopularPosts'])->name('post.popular');
+Route::get('/about', [App\Http\Controllers\BlogController::class, 'about'])->name('about');
+Route::get('/contact', [App\Http\Controllers\BlogController::class, 'contact'])->name('contact');
 
 });

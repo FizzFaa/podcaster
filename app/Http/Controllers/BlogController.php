@@ -292,4 +292,11 @@ return view('User.post',[
     
 ]);
     }
+    public function about()
+    {
+        return view('User.about');
+    }   public function contact()
+    {
+    return view('User.contact');
+    }
 }

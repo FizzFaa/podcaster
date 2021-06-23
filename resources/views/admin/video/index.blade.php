@@ -12,7 +12,7 @@
                 <a href="{{ route('video-add') }}" class="btn btn-outline-primary float-right"> <i class="fa fa-plus float-right"></i><span class="float-right">Add</span></a>
             </div>
             <div class="card-body">
-                <table class="table table-responsive-lg" style="overflow:scroll">
+                <table class="table table-responsive" style="overflow:scroll">
                     <thead class="thead-dark">
                         <tr>
                             <th>Sr#</th>

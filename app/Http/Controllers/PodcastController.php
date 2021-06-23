@@ -16,9 +16,24 @@ class PodcastController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        
+
+        if(isset($request['id']))
+        {
+        $blogs = Podcast::where('cat_id','=',$request['id'])->paginate(5);
+        }
+        else {
+              $blogs = Podcast::latest()->paginate(5);
+        }
+      
+
+        return view('User.index',
+        [
+            'posts'=>$blogs
+        ]);
     }
 
     /**
@@ -26,9 +41,39 @@ class PodcastController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+        
+        if($request->get('nextprev') == 0)
+        {
+ $Video = Podcast::find($request->get('id'))->first();
+ 
+        }
+        else if($request->get('nextprev') == 1)
+        {
+            $Video = Podcast::where('id','<',$request->get('id'))->first();
+            if($Video == null)
+            {
+                $Video = Podcast::find($request->get('id'));
+
+            }
+
+        }
+        else {
+            $Video = Podcast::where('id','>',$request->get('id'))->first();
+            if($Video == null)
+            {
+                $Video = Podcast::find($request->get('id'));
+
+            }
+        }
+       
+        return view('User.post',[
+            'post'=>$Video,
+            
+        ]);
+
     }
 
     /**
@@ -39,7 +84,7 @@ class PodcastController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        
         
         //title desc category image
         $this->validate($request,[

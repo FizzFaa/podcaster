@@ -68,9 +68,14 @@ Route::group(['middleware'=>['verified','auth'], 'prefix'=>'admin'],function(){
 });
 Route::post('cke', [App\Http\Controllers\EventsController::class,'store'])->name('cke');
 //Routes Front End
+Route::get('/', [App\Http\Controllers\BlogController::class, 'index'])->name('user.home');
 Route::group(['prefix'=>'user'],function(){
 Route::get('/', [App\Http\Controllers\BlogController::class, 'index'])->name('user.home');
+Route::get('/videos', [App\Http\Controllers\VideoController::class, 'index'])->name('user.videos');
+Route::get('/podcasts', [App\Http\Controllers\PodcastController::class, 'index'])->name('user.audios');
 Route::get('/post-details/', [App\Http\Controllers\BlogController::class, 'create'])->name('posts.details');
+Route::get('/post-details-videos/', [App\Http\Controllers\VideoController::class, 'create'])->name('posts.details.videos');
+Route::get('/post-details-podcast/', [App\Http\Controllers\PodcastController::class, 'create'])->name('posts.details.audios');
 Route::get('/popular/{id}', [App\Http\Controllers\BlogController::class, 'popularPosts'])->name('popular.details');
 Route::get('/getprevioustitle', [App\Http\Controllers\BlogController::class, 'prev'])->name('posts.prev');
 Route::get('/getnexttitle', [App\Http\Controllers\BlogController::class, 'next'])->name('posts.next');

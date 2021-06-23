@@ -3757,6 +3757,8 @@ footer h4::after {
    padding-top: 1.8rem;
    border-top: 1px solid rgba(0, 0, 0, 0.1);
    position: relative;
+   padding-bottom: 9.9rem; 
+   
 }
 
 .s-content__nav:after {

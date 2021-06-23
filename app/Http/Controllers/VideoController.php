@@ -17,9 +17,24 @@ class VideoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        
+
+        if(isset($request['id']))
+        {
+        $blogs = Video::where('cat_id','=',$request['id'])->paginate(5);
+        }
+        else {
+              $blogs = Video::latest()->paginate(5);
+        }
+      
+
+        return view('User.index',
+        [
+            'posts'=>$blogs
+        ]);
     }
 
     /**
@@ -27,9 +42,39 @@ class VideoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+        
+        if($request->get('nextprev') == 0)
+        {
+ $Video = Video::with('category')->find($request->get('id'))->first();
+ 
+        }
+        else if($request->get('nextprev') == 1)
+        {
+            $Video = Video::with('category')->where('id','<',$request->get('id'))->first();
+            if($Video == null)
+            {
+                $Video = Video::with('category')->find($request->get('id'));
+
+            }
+
+        }
+        else {
+            $Video = Video::with('category')->where('id','>',$request->get('id'))->first();
+            if($Video == null)
+            {
+                $Video = Video::with('category')->find($request->get('id'));
+
+            }
+        }
+       
+        return view('User.post',[
+            'post'=>$Video,
+            
+        ]);
+
     }
 
     /**

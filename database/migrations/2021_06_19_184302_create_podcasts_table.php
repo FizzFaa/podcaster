@@ -17,8 +17,8 @@ class CreatePodcastsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('image');
-            $table->string('desc');
-            $table->string('audio_link');
+            $table->text('desc');
+            $table->text('audio_link');
             $table->timestamps();
         });
     }

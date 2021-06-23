@@ -34,9 +34,10 @@
         
      
 
-        <section class="s-pageheader {{ Request::path() == 'user' ? 's-pageheader--home':''}} ">
+        <section class="s-pageheader {{ Request::path() == 'user' || Request::path() ==  '/' ? 's-pageheader--home':''}} ">
             @include('layouts.partials_user.header')
-            @if (Request::path() == 'user')  
+            @if (Request::path() == 'user' || Request::path() == '/')  
+            
             @include('layouts.partials_user.slider')
 @endif
         </section> <!-- end s-pageheader -->

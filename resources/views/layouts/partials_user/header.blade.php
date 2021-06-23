@@ -73,8 +73,8 @@
                     <a href="#0" title="">Blog</a>
                     <ul class="sub-menu">
                         
-                    <li><a href="single-video.html">Video Post</a></li>
-                    <li><a href="single-audio.html">Audio Post</a></li>
+                    <li><a href="{{ route('user.videos') }}">Video Post</a></li>
+                    <li><a href="{{ route('user.audios') }}">Audio Post</a></li>
                     
                     </ul>
                 </li>

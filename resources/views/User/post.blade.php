@@ -12,12 +12,20 @@
                 <li class="date">{{ $post->created_at }}</li>
                 <li class="cat">
                     In 
-                    <a href="#0">{{ $post->category->title }}</a>
+                    <a href="#0">{{ $post->category->title??'No Category' }}</a>
                     
                 </li>
             </ul>
         </div> <!-- end s-content__header -->
-
+        @if (isset($post->video_link))
+        <div class="s-content__media col-full">
+            <div class="video-container">
+              
+                
+                <iframe width="560" height="315" src="{{ $post->video_link }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div> 
+        </div> <!-- end s-content__media -->
+        
         <div class="s-content__media col-full">
             <div class="s-content__post-thumb">
                 <img src="{{ $post->image }}" 
@@ -25,37 +33,41 @@
                      sizes="(max-width: 2000px) 100vw, 2000px" alt="" >
             </div>
         </div> <!-- end s-content__media -->
+          @elseif (isset($post->audio_link))
+          <div class="s-content__media col-full">
+            <div class="s-content__post-thumb">
+                <img src="{{ $post->image }}" 
+                   
+                     sizes="(max-width: 2000px) 100vw, 2000px" alt="" >
+
+                <div class="audio-wrap">
+                    <audio id="player2" src="{{ $post->audio_link }}" width="100%" height="42" controls="controls"></audio>
+                </div>
+            </div>
+        </div> <!-- end s-content__media -->
+        <div class="s-content__media col-full">
+            <div class="s-content__post-thumb">
+                <img src="{{ $post->image }}" 
+                    
+                     sizes="(max-width: 2000px) 100vw, 2000px" alt="" >
+            </div>
+        </div> <!-- end s-content__media -->
+          @else  
+             <div class="s-content__media col-full">
+            <div class="s-content__post-thumb">
+                <img src="{{ $post->image }}" 
+                    
+                     sizes="(max-width: 2000px) 100vw, 2000px" alt="" >
+            </div>
+        </div> <!-- end s-content__media -->
+        @endif
+
+     
 
         <div class="col-full s-content__main">
 
             <p class="lead">{!! $post->desc !!}.</p>
-            
-            <p>Duis ex ad cupidatat tempor Excepteur cillum cupidatat fugiat nostrud cupidatat dolor sunt sint sit nisi est eu exercitation incididunt adipisicing veniam velit id fugiat enim mollit amet anim veniam dolor dolor irure velit commodo cillum sit nulla ullamco magna amet magna cupidatat qui labore cillum sit in tempor veniam consequat non laborum adipisicing aliqua ea nisi sint ut quis proident ullamco ut dolore culpa occaecat ut laboris in sit minim cupidatat ut dolor voluptate enim veniam consequat occaecat fugiat in adipisicing in amet Ut nulla nisi non ut enim aliqua laborum mollit quis nostrud sed sed.
-            </p>
-
-            <p>
-            <img src="{{ asset('theme/images/wheel-1000.jpg') }}" 
-               
-                 sizes="(max-width: 2000px) 100vw, 2000px" alt="">
-            </p>
-
-            <h2>Large Heading</h2>
-
-            <p>Harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus <a href="http://#">omnis voluptas assumenda est</a> id quod maxime placeat facere possimus, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et.</p>
-
-            <blockquote><p>This is a simple example of a styled blockquote. A blockquote tag typically specifies a section that is quoted from another source of some sort, or highlighting text in your post.</p></blockquote>
-
-            <p>Odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nulla vitae elit libero, a pharetra augue laboris in sit minim cupidatat ut dolor voluptate enim veniam consequat occaecat fugiat in adipisicing in amet Ut nulla nisi non ut enim aliqua laborum mollit quis nostrud sed sed.</p>
-
-            <h3>Smaller Heading</h3>
-
-            <p>Dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nulla vitae elit libero, a pharetra augue laboris in sit minim cupidatat ut dolor voluptate enim veniam consequat occaecat fugiat in adipisicing in amet Ut nulla nisi non ut enim aliqua laborum mollit quis nostrud sed sed.
-
-
-
-
-
-       
+    
 {{-- 
             <div class="s-content__author">
                 <img src="images/avatars/user-03.jpg" alt="">
@@ -76,26 +88,15 @@
                     </ul>
                 </div>
             </div> --}}
-
-            <div class="s-content__pagenav">
-                <div class="s-content__nav">
-                    <div class="s-content__prev">
-                        <a id="titleprev" href="{{ route('posts.details',['id'=>$post->id,'nextprev'=>1]) }}" rel="prev">
-                            <span>Previous Post</span>
-                           {{-- {{ $previouspost->title }} --}}
-                           
-                            
-                        </a>
-                    </div>
-                    <div class="s-content__next" >
-                        <a id="titlenext" href="{{ route('posts.details',['id'=>$post->id,'nextprev'=>2]) }}" rel="next">
-                            <span >Next Post</span>
-                            
-                            {{-- {{ $nextpost->title }} --}}
-                        </a>
-                    </div>
-                </div>
-            </div> <!-- end s-content__pagenav -->
+            @if (isset($post->video_link))
+            @include('layouts.partials_user.bottom_nav_video')
+            @elseif(isset($post->audio_link))
+            @include('layouts.partials_user.bottom_nav_audio')  
+            @else
+ @include('layouts.partials_user.bottom_nav_blog')
+            @endif
+           
+            <!-- end s-content__pagenav -->
 
         </div> <!-- end s-content__main -->
 

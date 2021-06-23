@@ -9,36 +9,92 @@
             <div class="masonry">
 
                 <div class="grid-sizer"></div>
+                
 @forelse($posts as $key => $value)
 
 <article class="masonry__brick entry format-standard" data-aos="fade-up">
                         @if($key+1!=2)
-    <div class="entry__thumb" >
+                        @if (isset($value->video_link))
+                        <div class="entry__thumb" >
+                            <a href="{{ route('posts.details.videos',['id'=>$value->id,'nextprev'=>0]) }}" class="entry__thumb-link">
+                                <img src="{{ $value->image }}" 
+                                         alt="">
+                            </a>
+                        </div>
+                        @elseif (isset($value->audio_link))
+                        <div class="entry__thumb">
+                            <a href="{{ route('posts.details.audios',['id'=>$value->id,'nextprev'=>0])  }}" class="entry__thumb-link">
+                                <img src="{{ $value->image }}" 
+                                         alt="">
+                            </a>
+                            <div class="audio-wrap">
+                                <audio id="player" src="{{ $value->audio_link }}" width="100%" height="42" controls="controls"></audio>
+                            </div>
+                        </div> <!-- end s-content__media -->
+                        
+                        @else
+
+                          <div class="entry__thumb" >
         <a href="{{ route('posts.details',['id'=>$value->id,'nextprev'=>0]) }}" class="entry__thumb-link">
             <img src="{{ $value->image }}" 
                      alt="">
         </a>
     </div>
+                            
+                        @endif
+  
 @endif
     <div class="entry__text">
         <div class="entry__header">
             @if($key+1!=2)
+            @if (isset($value->video_link))
             <div class="entry__date">
+                <a href="{{ route('posts.details.videos',['id'=>$value->id,'nextprev'=>0]) }}">{{ $value->created_at }}</a>
+            </div>
+            <h1 class="entry__title"><a href="{{ route('posts.details.videos',['id'=>$value->id,'nextprev'=>0]) }}">{{ $value->title }}</a></h1>
+           @elseif (isset($value->audio_link))
+           
+           <div class="entry__date">
+            <a href="{{ route('posts.details.audios',['id'=>$value->id,'nextprev'=>0]) }}">{{ $value->created_at }}</a>
+        </div>
+        <h1 class="entry__title"><a href="{{ route('posts.details.audios',['id'=>$value->id,'nextprev'=>0]) }}">{{ $value->title }}</a></h1>
+      
+           
+            @else
+             <div class="entry__date">
                 <a href="{{ route('posts.details',['id'=>$value->id,'nextprev'=>0]) }}">{{ $value->created_at }}</a>
             </div>
-            @endif
             <h1 class="entry__title"><a href="{{ route('posts.details',['id'=>$value->id,'nextprev'=>0]) }}">{{ $value->title }}</a></h1>
+            @endif
+           
+            @endif
+            
+            
             
         </div>
         <div class="entry__excerpt">
+            @if($key+1!=2)
             <p>
-                {{ $value->desc }}
+                {!! \Illuminate\Support\Str::limit($value->desc, $limit = 200, $end = '......')  !!}
             </p>
+            @else
+            <p>
+                {!! \Illuminate\Support\Str::limit($value->desc, $limit = 150, $end = '......')  !!}
+            </p>
+
+            @endif
         </div>
         <div class="entry__meta">
             <span class="entry__meta-links">
-                <a href="javascript:void(0)">Design</a> 
-                <a href="javascript:void(0)">Photography</a>
+                <a href="javascript:void(0)">
+                    @if ($value->audio_link != null)
+                    {{ strToUpper('No Category') }}
+                    @else
+                    {{ strToUpper($value->category->title) }} 
+                        
+                    @endif
+                    
+                </a>
             </span>
         </div>
     </div>
